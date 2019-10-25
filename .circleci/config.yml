@@ -1,39 +1,14 @@
 # Python CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
-#
-workflows:
-  version: 2
-  test_build:
-      jobs:
-        - test
-        - dockerize:
-            requires:
-              - test
-        - deploy:
-            requires:
-              - dockerize
-            
-        
+#       
 jobs:
   test:
-    docker:  
-      # docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: chandrarai/pythonapp:latest
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+    docker:      
+      - image: chandrarai/pythonapp:latest      
 
     steps:
-      - checkout
-
-      - run: 
-           name: Run the python command
-           command: 
-              python app.py
+      - checkout      
              
       - store_artifacts:
            path: .
@@ -60,3 +35,14 @@ jobs:
 
       - run: docker run -p 8888:5000 --name cir_testapp chandrarai/cir_testapp
 
+workflows:
+  version: 2
+  test_build:
+      jobs:
+        - test
+        - dockerize:
+            requires:
+              - test
+        - deploy:
+            requires:
+              - dockerize
