@@ -10,10 +10,11 @@ workflows:
         - dockerize:
             requires:
               - test
-        - deploy
+        - deploy:
+            requires:
+              - dockerize
             
-          
-
+        
 jobs:
   test:
     docker:  
@@ -42,7 +43,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      
+
       # Login to docker
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
