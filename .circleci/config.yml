@@ -26,15 +26,9 @@ jobs:
     steps:
       - checkout
 
-      - run: 
-           name: Run the docker command for building the app
-           command: 
-              docker build -t chandrarai/myfirstapp .
+      - run: docker build -t chandrarai/myfirstapp .
 
-      - run: 
-           name: Run the docker command for port forwarding
-           command:                    
-              docker run -p 8888:5000 --name myfirstapp chandrarai/myfirstapp
+      - run: docker run -p 8888:5000 --name myfirstapp chandrarai/myfirstapp
              
       - store_artifacts:
            path: .
