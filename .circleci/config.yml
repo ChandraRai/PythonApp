@@ -26,9 +26,10 @@ jobs:
     steps:
       - checkout
 
-      - run: docker build -t chandrarai/myfirstapp .
-
-      - run: docker run -p 8888:5000 --name myfirstapp chandrarai/myfirstapp
+      - run: 
+           name: Run the python command
+           command: 
+              python app.py
              
       - store_artifacts:
            path: .
@@ -38,6 +39,11 @@ jobs:
     machine: true
     steps:
       - checkout
+
+      - run: docker build -t chandrarai/myfirstapp .
+
+      - run: docker run -p 8888:5000 --name myfirstapp chandrarai/myfirstapp
+
       # Login to docker
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
