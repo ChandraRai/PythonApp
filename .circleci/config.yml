@@ -48,6 +48,6 @@ jobs:
     steps:
       - checkout
 
-      - run: docker pull chandrarai/cir_chandra:e33bfa23f33751d59ae4cb26e79f9df2e8cae068
+      - run: docker pull chandrarai/cir_chandra:$CIRCLE_SHA1
 
       - run: docker run -p 8888:5000 --name cir_chandra chandrarai/cir_chandra:$CIRCLE_SHA1
