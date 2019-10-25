@@ -30,8 +30,8 @@
       - checkout
 
       - run: docker run -p 8888:5000 --name cir_testapp chandrarai/cir_testapp
-
-workflows:
+      
+  workflows:
   version: 2
   test_build:
       jobs:
@@ -42,3 +42,4 @@ workflows:
         - deploy:
             requires:
               - dockerize
+
