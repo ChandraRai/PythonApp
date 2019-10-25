@@ -10,6 +10,9 @@ workflows:
         - dockerize:
             requires:
               - test
+        - deploy
+            
+          
 
 jobs:
   test:
@@ -39,16 +42,20 @@ jobs:
     machine: true
     steps:
       - checkout
-
-      - run: docker build -t chandrarai/myfirstapp .
-
-      - run: docker run -p 8888:5000 --name myfirstapp chandrarai/myfirstapp
-
+      
       # Login to docker
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
       # build the application image
-      - run: docker build -t $DOCKER_USER/rai_test:$CIRCLE_SHA1 .
+      - run: docker build -t $DOCKER_USER/cir_testapp:$CIRCLE_SHA1 .
 
       # deploy the image
-      - run: docker push $DOCKER_USER/rai_test:$CIRCLE_SHA1
+      - run: docker push $DOCKER_USER/cir_testapp:$CIRCLE_SHA1
+  
+  deploy:
+    machine: true
+    steps:
+      - checkout
+
+      - run: docker run -p 8888:5000 --name cir_testapp chandrarai/cir_testapp
+
