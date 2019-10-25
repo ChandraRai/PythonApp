@@ -48,4 +48,4 @@ jobs:
     steps:
       - checkout
 
-      - run: docker run -p 8888:5000 --name $DOCKER_USER/cir_chandra chandrarai/cir_chandra
+      - run: docker run -p 8888:5000 --name $DOCKER_USER/cir_chandra chandrarai/cir_chandra:$CIRCLE_SHA1
